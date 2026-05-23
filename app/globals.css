@@ -2,88 +2,128 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── Theme tokens ─────────────────────────────────────── */
+:root {
+  --bg: #f4f1ec;
+  --bg-rgb: 244 241 236;
+  --surface: #fbfaf8;
+  --surface-rgb: 251 250 248;
+  --ink: #16130f;
+  --ink-rgb: 22 19 15;
+  --ink-soft: #5c564e;
+  --ink-soft-rgb: 92 86 78;
+  --line: #e3ddd3;
+  --line-rgb: 227 221 211;
+  --accent: #d8633e;
+  --accent-rgb: 216 99 62;
+  --accent-2: #4a8f86;
+  --accent-2-rgb: 74 143 134;
+
+  --mesh-coral: rgba(216, 99, 62, 0.11);
+  --mesh-teal: rgba(74, 143, 134, 0.10);
+  --grid-line: rgba(22, 19, 15, 0.06);
+}
+
+.dark {
+  --bg: #110f0d;
+  --bg-rgb: 17 15 13;
+  --surface: #1a1714;
+  --surface-rgb: 26 23 20;
+  --ink: #f3efe8;
+  --ink-rgb: 243 239 232;
+  --ink-soft: #a59c8e;
+  --ink-soft-rgb: 165 156 142;
+  --line: #2e2924;
+  --line-rgb: 46 41 36;
+  --accent: #e8784f;
+  --accent-rgb: 232 120 79;
+  --accent-2: #6dbcb1;
+  --accent-2-rgb: 109 188 177;
+
+  --mesh-coral: rgba(232, 120, 79, 0.07);
+  --mesh-teal: rgba(109, 188, 177, 0.07);
+  --grid-line: rgba(243, 239, 232, 0.04);
+}
+
+/* ── Base ─────────────────────────────────────────────── */
 @layer base {
   html {
     scroll-behavior: smooth;
   }
 
   body {
-    background-color: #0C0C0E;
-    color: #F0EAD6;
+    background-color: var(--bg);
+    color: var(--ink);
+    font-family: var(--font-bricolage), system-ui, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
 
   ::selection {
-    background-color: rgba(201, 168, 76, 0.25);
-    color: #F0EAD6;
+    background-color: rgba(216, 99, 62, 0.18);
+    color: var(--ink);
   }
 
-  ::-webkit-scrollbar {
-    width: 5px;
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
-  ::-webkit-scrollbar-track {
-    background: #0C0C0E;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: rgba(201, 168, 76, 0.25);
-    border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: rgba(201, 168, 76, 0.45);
-  }
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 4px; }
 }
 
+/* ── Utility components ───────────────────────────────── */
 @layer components {
-  .grain-overlay {
-    position: fixed;
-    top: -50%;
-    left: -50%;
-    width: 200%;
-    height: 200%;
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.038;
-    animation: grain 8s steps(1) infinite;
-    background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    background-size: 200px 200px;
+
+  /* Gradient mesh background for hero + alternating sections */
+  .gradient-mesh {
+    background-image:
+      radial-gradient(ellipse 65% 55% at -5% 5%, var(--mesh-coral) 0%, transparent 65%),
+      radial-gradient(ellipse 55% 65% at 108% 95%, var(--mesh-teal) 0%, transparent 65%);
+    background-color: var(--bg);
   }
 
-  @keyframes grain {
-    0%, 100% { transform: translate(0, 0) }
-    10% { transform: translate(-5%, -10%) }
-    20% { transform: translate(-15%, 5%) }
-    30% { transform: translate(7%, -25%) }
-    40% { transform: translate(-5%, 25%) }
-    50% { transform: translate(-15%, 10%) }
-    60% { transform: translate(15%, 0%) }
-    70% { transform: translate(0%, 15%) }
-    80% { transform: translate(3%, 35%) }
-    90% { transform: translate(-10%, 10%) }
+  /* Faint grid texture, hero only. Fades via radial mask. */
+  .hero-grid {
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 45%, black 0%, transparent 100%);
+    -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 45%, black 0%, transparent 100%);
   }
 
-  .section-label {
-    @apply font-mono text-xs tracking-[0.3em] uppercase;
-    color: rgba(201, 168, 76, 0.65);
+  /* Hero entrance animations (CSS-only, staggered) */
+  @keyframes hero-fade-rise {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 
-  .section-title {
-    @apply font-serif font-bold leading-[1.08] tracking-tight text-[#F0EAD6];
+  .hero-el {
+    opacity: 0;
+    animation: hero-fade-rise 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   }
+  .hero-el-1 { animation-delay: 0.05s; }
+  .hero-el-2 { animation-delay: 0.20s; }
+  .hero-el-3 { animation-delay: 0.36s; }
+  .hero-el-4 { animation-delay: 0.52s; }
+  .hero-el-5 { animation-delay: 0.68s; }
 
-  .amber-glow {
-    box-shadow: 0 0 40px rgba(201, 168, 76, 0.15), 0 0 80px rgba(201, 168, 76, 0.05);
-  }
-
-  .card-amber-hover {
+  /* Card hover: subtle lift + diffuse shadow. Border goes accent on hover. */
+  .card-hover {
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   }
 
-  .card-amber-hover:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 168, 76, 0.25), 0 4px 40px rgba(201, 168, 76, 0.08);
+  .card-hover:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.07), 0 4px 16px rgba(0, 0, 0, 0.04);
+    border-color: var(--accent) !important;
+  }
+
+  .dark .card-hover:hover {
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35), 0 4px 16px rgba(0, 0, 0, 0.18);
   }
 }

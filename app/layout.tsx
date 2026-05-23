@@ -1,28 +1,23 @@
 import type { Metadata } from 'next'
-import { Playfair_Display, Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Bricolage_Grotesque, Newsreader } from 'next/font/google'
 import './globals.css'
 
-const playfair = Playfair_Display({
+const bricolage = Bricolage_Grotesque({
   subsets: ['latin'],
-  variable: '--font-playfair',
+  variable: '--font-bricolage',
   display: 'swap',
 })
 
-const spaceGrotesk = Space_Grotesk({
+const newsreader = Newsreader({
   subsets: ['latin'],
-  variable: '--font-space-grotesk',
+  variable: '--font-newsreader',
   display: 'swap',
-})
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
-  variable: '--font-jetbrains',
-  display: 'swap',
+  style: ['normal', 'italic'],
   weight: ['400', '500'],
 })
 
 export const metadata: Metadata = {
-  title: 'Reshaan — Developer & Builder',
+  title: 'Reshaan. Developer and Builder.',
   description:
     'Developer, builder, and CS student from Gqeberha, South Africa. Shipping AI tools, full-stack products, and developer infrastructure with global ambition.',
   keywords: ['developer', 'portfolio', 'Next.js', 'AI', 'full-stack', 'South Africa', 'Gqeberha', 'Reshaan'],
@@ -33,28 +28,29 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_ZA',
     url: 'https://reshaan.dev',
-    title: 'Reshaan — Developer & Builder',
+    title: 'Reshaan. Developer and Builder.',
     description:
       'Developer, builder, and CS student from Gqeberha, South Africa. Shipping AI tools, full-stack products, and developer infrastructure with global ambition.',
     siteName: 'Reshaan',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reshaan — Developer & Builder',
+    title: 'Reshaan. Developer and Builder.',
     description: 'Developer, builder, and CS student from Gqeberha, South Africa. Building with global ambition.',
   },
   robots: { index: true, follow: true },
-  icons: {
-    icon: '/favicon.svg',
-  },
+  icons: { icon: '/favicon.svg' },
 }
+
+const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <body
-        className={`${playfair.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} font-sans bg-canvas text-ink antialiased`}
-      >
+    <html lang="en">
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+      </head>
+      <body className={`${bricolage.variable} ${newsreader.variable}`}>
         {children}
       </body>
     </html>
