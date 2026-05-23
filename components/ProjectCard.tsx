@@ -20,14 +20,22 @@ export default function ProjectCard({ project, index, onClick }: Props) {
   const extra = project.tech.length - MAX_PILLS
   const isLive = project.status === 'Live'
 
+  const handleClick = () => {
+    if (project.caseStudyUrl) {
+      window.open(project.caseStudyUrl, '_blank', 'noopener,noreferrer')
+    } else {
+      onClick()
+    }
+  }
+
   return (
     <motion.article
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: (index % 3) * 0.09, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      onClick={onClick}
-      onKeyDown={(e) => e.key === 'Enter' && onClick()}
+      onClick={handleClick}
+      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
       tabIndex={0}
       role="button"
       aria-label={`View ${project.name} case study`}
@@ -72,12 +80,23 @@ export default function ProjectCard({ project, index, onClick }: Props) {
         )}
       </div>
 
-      <div className="flex items-center gap-1 text-sm text-accent font-medium">
-        <span>View case study</span>
-        <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>
-          &rarr;
-        </span>
-      </div>
+      {project.caseStudyUrl ? (
+        <a
+          href={project.caseStudyUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+          className="flex items-center gap-1 text-sm text-accent font-medium"
+        >
+          <span>View case study</span>
+          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
+        </a>
+      ) : (
+        <div className="flex items-center gap-1 text-sm text-accent font-medium">
+          <span>View case study</span>
+          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
+        </div>
+      )}
     </motion.article>
   )
 }
