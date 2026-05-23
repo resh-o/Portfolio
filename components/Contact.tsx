@@ -36,30 +36,51 @@ const socials = [
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
 
-const fields = [
-  { id: 'name', label: 'Name', type: 'text', placeholder: 'Your name' },
-  { id: 'email', label: 'Email', type: 'email', placeholder: 'your@email.com' },
-]
+const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const empty = { name: '', email: '', message: '' }
 
 export default function Contact() {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-80px' })
   const [state, setState] = useState<FormState>('idle')
-  const [values, setValues] = useState({ name: '', email: '', message: '' })
+  const [errorMsg, setErrorMsg] = useState('')
+  const [values, setValues] = useState(empty)
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
+
+    const { name, email, message } = values
+    if (!name.trim()) { setErrorMsg('Please enter your name.'); return }
+    if (!emailRe.test(email.trim())) { setErrorMsg('Please enter a valid email address.'); return }
+    if (!message.trim()) { setErrorMsg('Please enter a message.'); return }
+
     setState('loading')
+    setErrorMsg('')
+
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim() }),
       })
-      setState(res.ok ? 'success' : 'error')
+
+      if (res.ok) {
+        setState('success')
+        setValues(empty)
+      } else {
+        const data = await res.json().catch(() => ({}))
+        setErrorMsg((data as { error?: string }).error ?? 'Failed to send message. Please email me directly.')
+        setState('error')
+      }
     } catch {
+      setErrorMsg('Network error. Please email me directly.')
       setState('error')
     }
+  }
+
+  const set = (field: keyof typeof empty) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setValues((v) => ({ ...v, [field]: e.target.value }))
+    if (state === 'error') { setState('idle'); setErrorMsg('') }
   }
 
   const inputClass =
@@ -117,28 +138,46 @@ export default function Contact() {
         >
           {state === 'success' ? (
             <div className="py-8 text-center">
-              <div className="text-3xl mb-4" aria-hidden>&#10003;</div>
-              <p className="font-semibold text-ink text-lg mb-1">Message sent.</p>
-              <p className="text-ink-soft text-sm">Thanks for reaching out. I&apos;ll get back to you soon.</p>
+              <div className="w-12 h-12 rounded-full bg-accent-2/15 flex items-center justify-center mx-auto mb-4">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent-2" aria-hidden>
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </div>
+              <p className="font-semibold text-ink text-lg mb-1">Message sent to Reshaan.</p>
+              <p className="text-ink-soft text-sm">I&apos;ll get back to you soon.</p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} noValidate className="space-y-4">
-              {fields.map((field) => (
-                <div key={field.id}>
-                  <label htmlFor={field.id} className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
-                    {field.label}
-                  </label>
-                  <input
-                    id={field.id}
-                    type={field.type}
-                    required
-                    placeholder={field.placeholder}
-                    value={values[field.id as keyof typeof values]}
-                    onChange={(e) => setValues({ ...values, [field.id]: e.target.value })}
-                    className={inputClass}
-                  />
-                </div>
-              ))}
+              <div>
+                <label htmlFor="name" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
+                  Name
+                </label>
+                <input
+                  id="name"
+                  type="text"
+                  required
+                  placeholder="Your name"
+                  value={values.name}
+                  onChange={set('name')}
+                  className={inputClass}
+                />
+              </div>
+
+              <div>
+                <label htmlFor="email" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
+                  Email
+                </label>
+                <input
+                  id="email"
+                  type="email"
+                  required
+                  placeholder="your@email.com"
+                  value={values.email}
+                  onChange={set('email')}
+                  className={inputClass}
+                />
+              </div>
+
               <div>
                 <label htmlFor="message" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
                   Message
@@ -149,13 +188,15 @@ export default function Contact() {
                   rows={5}
                   placeholder="What are you building?"
                   value={values.message}
-                  onChange={(e) => setValues({ ...values, message: e.target.value })}
+                  onChange={set('message')}
                   className={`${inputClass} resize-none`}
                 />
               </div>
 
-              {state === 'error' && (
-                <p className="text-sm text-red-500">Something went wrong. Try emailing directly.</p>
+              {errorMsg && (
+                <p role="alert" className="text-sm text-red-500">
+                  {errorMsg}
+                </p>
               )}
 
               <button
