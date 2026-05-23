@@ -39,7 +39,6 @@ export const metadata: Metadata = {
     description: 'Developer, builder, and CS student from Gqeberha, South Africa. Building with global ambition.',
   },
   robots: { index: true, follow: true },
-  icons: { icon: '/favicon.svg' },
 }
 
 const themeScript = `(function(){try{var t=localStorage.getItem('theme');if(t==='dark'||(t===null&&window.matchMedia('(prefers-color-scheme:dark)').matches)){document.documentElement.classList.add('dark')}}catch(e){}})();`
