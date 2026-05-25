@@ -10,7 +10,7 @@ export interface Project {
   status: ProjectStatus
   github?: string
   demo?: string
-  caseStudyUrl?: string
+  liveSiteUrl?: string
   features: string[]
   learned: string
   icon: string
@@ -21,7 +21,7 @@ export interface Project {
 
 export const projects: Project[] = [
   {
-    id: 'tradesman-copilot',
+    id: 'tradesman',
     name: 'Tradesman',
     tagline: 'AI quoting tool for South African tradespeople.',
     description:
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     tech: ['Next.js', 'Supabase', 'Anthropic API', 'Groq API', 'Paystack', 'Resend', 'Google OAuth', 'Vercel'],
     status: 'Live',
     github: 'https://github.com/resh-o',
-    caseStudyUrl: 'https://tradesman.co.za',
+    liveSiteUrl: 'https://tradesman.to',
     features: [
       'AI quote generation from plain-language job descriptions',
       'Realistic local South African pricing database',

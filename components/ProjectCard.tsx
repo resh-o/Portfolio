@@ -21,11 +21,7 @@ export default function ProjectCard({ project, index, onClick }: Props) {
   const isLive = project.status === 'Live'
 
   const handleClick = () => {
-    if (project.caseStudyUrl) {
-      window.open(project.caseStudyUrl, '_blank', 'noopener,noreferrer')
-    } else {
-      onClick()
-    }
+    onClick()
   }
 
   return (
@@ -80,23 +76,10 @@ export default function ProjectCard({ project, index, onClick }: Props) {
         )}
       </div>
 
-      {project.caseStudyUrl ? (
-        <a
-          href={project.caseStudyUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          onClick={(e) => e.stopPropagation()}
-          className="flex items-center gap-1 text-sm text-accent font-medium"
-        >
-          <span>View case study</span>
-          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
-        </a>
-      ) : (
-        <div className="flex items-center gap-1 text-sm text-accent font-medium">
-          <span>View case study</span>
-          <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
-        </div>
-      )}
+      <div className="flex items-center gap-1 text-sm text-accent font-medium">
+        <span>View case study</span>
+        <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
+      </div>
     </motion.article>
   )
 }

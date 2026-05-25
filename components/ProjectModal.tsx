@@ -103,8 +103,18 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
             <p className="text-ink-soft leading-relaxed">{project.learned}</p>
           </div>
 
-          {(project.github || project.demo) && (
-            <div className="flex gap-3 pt-2">
+          {(project.github || project.demo || project.liveSiteUrl) && (
+            <div className="flex flex-wrap gap-3 pt-2">
+              {project.liveSiteUrl && (
+                <a
+                  href={project.liveSiteUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 text-sm font-semibold px-5 py-2.5 rounded-full bg-accent text-white hover:opacity-90 transition-opacity"
+                >
+                  Visit Live Site &rarr;
+                </a>
+              )}
               {project.github && (
                 <a
                   href={project.github}
