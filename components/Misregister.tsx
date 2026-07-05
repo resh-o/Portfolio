@@ -7,6 +7,8 @@ interface Props {
   className?: string
   /** Re-separate the ink layers on hover (for interactive titles). */
   hover?: boolean
+  /** Any other attributes (e.g. aria-hidden) are forwarded to the root. */
+  [key: string]: unknown
 }
 
 /**
@@ -15,10 +17,10 @@ interface Props {
  * a touch out of registration. On load the ghosts travel in and snap toward
  * registration; `prefers-reduced-motion` renders them already registered.
  */
-export default function Misregister({ children, as = 'span', className = '', hover = false }: Props) {
+export default function Misregister({ children, as = 'span', className = '', hover = false, ...rest }: Props) {
   return createElement(
     as,
-    { className: `riso ${hover ? 'riso-hover' : ''} ${className}` },
+    { className: `riso ${hover ? 'riso-hover' : ''} ${className}`, ...rest },
     <>
       <span className="riso-ghost riso-pink" aria-hidden>{children}</span>
       <span className="riso-ghost riso-blue" aria-hidden>{children}</span>
