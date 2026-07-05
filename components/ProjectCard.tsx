@@ -4,82 +4,64 @@ import { useRef } from 'react'
 import { motion, useInView } from 'framer-motion'
 import type { Project } from '@/data/projects'
 
-interface Props {
+const MAX_PILLS = 3
+
+export default function ProjectCard({
+  project,
+  index,
+  onOpen,
+}: {
   project: Project
   index: number
-  onClick: () => void
-}
-
-const MAX_PILLS = 4
-
-export default function ProjectCard({ project, index, onClick }: Props) {
+  onOpen: () => void
+}) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: '-60px' })
-
   const visible = project.tech.slice(0, MAX_PILLS)
-  const extra = project.tech.length - MAX_PILLS
-  const isLive = project.status === 'Live'
-
-  const handleClick = () => {
-    onClick()
-  }
+  const extra = project.tech.length - visible.length
 
   return (
     <motion.article
       ref={ref}
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ delay: (index % 3) * 0.09, duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
-      onClick={handleClick}
-      onKeyDown={(e) => e.key === 'Enter' && handleClick()}
+      transition={{ delay: (index % 3) * 0.08, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      onClick={onOpen}
+      onKeyDown={(e) => e.key === 'Enter' && onOpen()}
       tabIndex={0}
       role="button"
       aria-label={`View ${project.name} case study`}
-      className="group flex flex-col p-6 rounded-card border border-line bg-surface cursor-pointer card-hover"
+      className="lift key-line group flex cursor-pointer flex-col bg-surface p-6"
     >
-      <div className="flex items-start justify-between mb-4">
-        <span className="text-2xl" role="img" aria-label={project.name}>
-          {project.icon}
+      <div className="flex items-center justify-between">
+        <span className="font-display text-xl font-bold tabular-nums text-ink/30">
+          {project.no}
         </span>
-        <span
-          className={`inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-wide px-2.5 py-1 rounded-full border ${
-            isLive
-              ? 'text-accent-2 border-accent-2/30 bg-accent-2/10'
-              : 'text-ink-soft border-line bg-bg'
-          }`}
-        >
-          {isLive && <span className="w-1.5 h-1.5 rounded-full bg-accent-2" aria-hidden />}
+        <span className="text-[0.65rem] font-bold uppercase tracking-[0.14em] text-ink-soft">
           {project.status}
         </span>
       </div>
 
-      <h3 className="font-semibold text-ink text-[1.05rem] mb-2 group-hover:text-accent transition-colors duration-200">
+      <h3 className="mt-5 font-display text-lg font-bold uppercase leading-tight tracking-tight text-ink transition-colors group-hover:text-pink">
         {project.name}
       </h3>
-      <p className="text-ink-soft text-sm leading-relaxed flex-1 mb-5">
-        {project.tagline}
-      </p>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-soft">{project.tagline}</p>
 
-      <div className="flex flex-wrap gap-1.5 mb-5">
+      <ul className="mt-5 flex flex-wrap gap-1.5" aria-label="Tech stack">
         {visible.map((t) => (
-          <span
-            key={t}
-            className="text-[11px] px-2.5 py-1 rounded-full border border-line bg-bg text-ink-soft"
-          >
+          <li key={t} className="border border-line px-2 py-0.5 text-[0.68rem] text-ink-soft">
             {t}
-          </span>
+          </li>
         ))}
         {extra > 0 && (
-          <span className="text-[11px] px-2.5 py-1 rounded-full border border-line text-ink-soft">
-            +{extra}
-          </span>
+          <li className="border border-line px-2 py-0.5 text-[0.68rem] text-ink-soft">+{extra}</li>
         )}
-      </div>
+      </ul>
 
-      <div className="flex items-center gap-1 text-sm text-accent font-medium">
-        <span>View case study</span>
-        <span className="transition-transform duration-200 group-hover:translate-x-1" aria-hidden>&rarr;</span>
-      </div>
+      <span className="mt-5 flex items-center gap-1 text-sm font-semibold text-ink">
+        View case study
+        <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
+      </span>
     </motion.article>
   )
 }
