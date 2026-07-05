@@ -16,6 +16,8 @@ export interface Project {
   tech: string[]
   status: ProjectStatus
   github?: string
+  /** Source is a private repo: show a label instead of a GitHub link. */
+  privateRepo?: boolean
   liveSiteUrl?: string
   features: string[]
   learned: string
@@ -35,7 +37,7 @@ export const projects: Project[] = [
     name: 'Tradesman',
     tagline: 'A live, AI-powered quoting tool for South African tradespeople.',
     description:
-      'Describe a job in plain language and Tradesman returns a professional, itemised quote with realistic local pricing — ready to send in under 30 seconds. Built for the South African trades market and used by real tradespeople.',
+      'Describe a job in plain language and Tradesman returns a professional, itemised quote with realistic local pricing, ready to send in under 30 seconds. Built for the South African trades market and used by real tradespeople.',
     problem:
       'South African tradespeople lose hours building quotes by hand. Tradesman removes that friction: describe the job, the AI generates an accurate itemised quote with local pricing, and you send a professional document minutes later.',
     tech: ['Next.js', 'Supabase', 'Anthropic API', 'Groq API', 'Paystack', 'Resend', 'Google OAuth', 'Vercel'],
@@ -64,22 +66,24 @@ export const projects: Project[] = [
     no: '02',
     id: 'techmove',
     name: 'TechMove',
-    tagline: '[TODO: one-line description — confirm with Reshaan]',
+    tagline: 'An enterprise goods logistics management system.',
     description:
-      '[TODO] A Dockerized project on Reshaan\'s GitHub. The public description and stack still need to be confirmed before this copy goes live — no details are being invented here.',
+      'An enterprise goods logistics management system built with ASP.NET Core and C#, applying Gang-of-Four design patterns (Factory, Strategy, Observer) for extensibility, and Dockerized for portable deployment.',
     problem:
-      '[TODO: what problem TechMove solves — to confirm.]',
-    tech: ['Docker', '[TODO: rest of stack]'],
+      'Enterprise logistics software has to grow without constant rewrites. TechMove leans on classic design patterns so new behaviour drops in cleanly, and ships in a container for reproducible, portable deployment.',
+    tech: ['ASP.NET Core', 'C#', 'Docker'],
     status: 'Completed',
-    github: 'https://github.com/resh-o',
+    privateRepo: true,
     features: [
-      '[TODO: confirm feature list from the repo.]',
+      'Enterprise goods logistics management',
+      'Gang-of-Four patterns (Factory, Strategy, Observer) for extensibility',
+      'Built on ASP.NET Core and C#',
+      'Dockerized for portable, reproducible deployment',
     ],
     learned:
-      '[TODO: to confirm.]',
+      'Applying Gang-of-Four design patterns to keep an enterprise codebase extensible, and containerising a .NET application for portable deployment.',
     featured: true,
-    year: '[TODO]',
-    todo: 'No repo named "TechMove" was found on github.com/resh-o. Confirm the exact repo, one-line description, stack, and link.',
+    year: '', // not displayed; left blank rather than guessing a date
   },
   {
     no: '03',
@@ -89,13 +93,13 @@ export const projects: Project[] = [
     description:
       "Chat one-on-one with 12 philosopher personas, or set them against each other in a live debate on any topic. A colourful terminal application powered by the Google Gemini API.",
     problem:
-      'Philosophy lands harder as dialogue than as a textbook. Agora stages a living seminar in the terminal — pressure-test an idea against Nietzsche, or watch twelve thinkers argue a question out in real time.',
+      'Philosophy lands harder as dialogue than as a textbook. Agora stages a living seminar in the terminal. Pressure-test an idea against Nietzsche, or watch twelve thinkers argue a question out in real time.',
     tech: ['Python', 'Google Gemini API', 'Rich'],
     status: 'Completed',
     github: 'https://github.com/resh-o/Agora',
     features: [
       '12 philosopher personas, each with a distinct voice',
-      'Multi-persona debate mode — the philosophers argue with each other',
+      'Multi-persona debate mode (the philosophers argue with each other)',
       'Persistent, resumable conversation history',
       'Colourful terminal UI built with the Rich library',
       'Clean OOP architecture: models, services, UI, utils',
@@ -124,7 +128,7 @@ export const projects: Project[] = [
       'Session memory preserved across conversations',
       'Message history persistence',
       'Clean, minimal chat interface',
-      'Zero external API calls — capable of running fully offline',
+      'Zero external API calls (capable of running fully offline)',
     ],
     learned:
       'The trade-offs of local LLM inference versus cloud APIs, full-stack JavaScript architecture, and what privacy-first design actually demands at the system level.',
@@ -137,7 +141,7 @@ export const projects: Project[] = [
     name: 'Contract Monthly Claim System',
     tagline: 'End-to-end claims management for contract lecturers.',
     description:
-      'A full-stack ASP.NET Core MVC web application that runs the monthly claims lifecycle for contract lecturers — from submission, through coordinator review, to academic-manager approval.',
+      'A full-stack ASP.NET Core MVC web application that runs the monthly claims lifecycle for contract lecturers, from submission through coordinator review to academic-manager approval.',
     problem:
       'Contract lecturers deal with manual, paper-heavy claims. This system digitises the whole workflow with a role-appropriate dashboard for each stakeholder.',
     tech: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'HTML', 'CSS'],
@@ -161,7 +165,7 @@ export const projects: Project[] = [
     name: 'Solar System Simulation',
     tagline: 'Planetary orbits, visualised in vanilla JavaScript.',
     description:
-      'A browser-based visualisation of the planets orbiting the sun, built from three files — index.html, script.js, style.css — with no frameworks or dependencies.',
+      'A browser-based visualisation of the planets orbiting the sun, built from three files (index.html, script.js, style.css) with no frameworks or dependencies.',
     problem:
       'A focused study in animation and the browser: build something visually satisfying with plain JavaScript and nothing else.',
     tech: ['JavaScript', 'HTML', 'CSS'],
@@ -169,7 +173,7 @@ export const projects: Project[] = [
     github: 'https://github.com/resh-o/Solar-System-Simulation',
     features: [
       'Animated orbits of the planets around the sun',
-      'Built in vanilla JavaScript — no frameworks',
+      'Built in vanilla JavaScript, no frameworks',
       'Self-contained: index.html, script.js, style.css',
     ],
     learned:

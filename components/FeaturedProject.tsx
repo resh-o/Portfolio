@@ -114,10 +114,25 @@ export default function FeaturedProject({
                 GitHub <span aria-hidden>↗</span>
               </a>
             )}
+            {project.privateRepo && (
+              <span className="flex items-center gap-1.5 text-ink-soft">
+                <LockIcon />
+                Private repo
+              </span>
+            )}
           </div>
         </div>
       </div>
     </motion.article>
+  )
+}
+
+function LockIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+      <rect x="4" y="11" width="16" height="9" rx="1" />
+      <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+    </svg>
   )
 }
 
