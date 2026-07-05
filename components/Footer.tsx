@@ -1,27 +1,32 @@
 const socials = [
   { label: 'GitHub', href: 'https://github.com/resh-o' },
-  { label: 'X', href: 'https://x.com' },
-  { label: 'LinkedIn', href: 'https://linkedin.com' },
+  { label: 'LinkedIn', href: '#' }, // [TODO: add LinkedIn URL]
+  { label: 'Email', href: 'mailto:reshaangovender@gmail.com' },
 ]
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line/60 py-10">
-      <div className="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-ink-soft text-center sm:text-left">
-          &copy; 2026 Reshaan. Deployed from the bottom of the world.
-        </p>
+    <footer className="border-t-2 border-ink px-5 py-10 sm:px-6">
+      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
+        <div>
+          <p className="font-display text-sm font-bold uppercase tracking-tight text-ink">
+            Reshaan Govender
+          </p>
+          <p className="mt-1 text-sm text-ink-soft">
+            © {new Date().getFullYear()} · Printed in Gqeberha, South Africa.
+          </p>
+        </div>
 
-        <nav aria-label="Footer links" className="flex items-center gap-6">
+        <nav aria-label="Footer links" className="flex flex-wrap items-center gap-x-6 gap-y-2">
           {socials.map((s) => (
             <a
               key={s.label}
               href={s.href}
-              target="_blank"
+              target={s.href.startsWith('http') ? '_blank' : undefined}
               rel="noopener noreferrer"
-              className="text-sm text-ink-soft hover:text-accent transition-colors duration-200"
+              className="text-sm font-semibold text-ink-soft transition-colors hover:text-pink"
             >
-              {s.label}
+              {s.label} ↗
             </a>
           ))}
         </nav>

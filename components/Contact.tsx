@@ -3,39 +3,16 @@
 import { useRef, useState, FormEvent } from 'react'
 import { motion, useInView } from 'framer-motion'
 import SectionLabel from './SectionLabel'
+import Misregister from './Misregister'
+
+const EMAIL = 'reshaangovender@gmail.com'
 
 const socials = [
-  {
-    label: 'GitHub',
-    href: 'https://github.com/resh-o',
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'X',
-    href: 'https://x.com',
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-      </svg>
-    ),
-  },
-  {
-    label: 'LinkedIn',
-    href: 'https://linkedin.com',
-    icon: (
-      <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-      </svg>
-    ),
-  },
+  { label: 'GitHub', href: 'https://github.com/resh-o', note: '' },
+  { label: 'LinkedIn', href: '#', note: '[TODO: add LinkedIn URL]' },
 ]
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
-
 const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const empty = { name: '', email: '', message: '' }
 
@@ -48,28 +25,25 @@ export default function Contact() {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-
     const { name, email, message } = values
-    if (!name.trim()) { setErrorMsg('Please enter your name.'); return }
-    if (!emailRe.test(email.trim())) { setErrorMsg('Please enter a valid email address.'); return }
-    if (!message.trim()) { setErrorMsg('Please enter a message.'); return }
+    if (!name.trim()) return setErrorMsg('Please enter your name.')
+    if (!emailRe.test(email.trim())) return setErrorMsg('Please enter a valid email address.')
+    if (!message.trim()) return setErrorMsg('Please enter a message.')
 
     setState('loading')
     setErrorMsg('')
-
     try {
       const res = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: name.trim(), email: email.trim(), message: message.trim() }),
       })
-
       if (res.ok) {
         setState('success')
         setValues(empty)
       } else {
         const data = await res.json().catch(() => ({}))
-        setErrorMsg((data as { error?: string }).error ?? 'Failed to send message. Please email me directly.')
+        setErrorMsg((data as { error?: string }).error ?? 'Failed to send. Please email me directly.')
         setState('error')
       }
     } catch {
@@ -78,138 +52,127 @@ export default function Contact() {
     }
   }
 
-  const set = (field: keyof typeof empty) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setValues((v) => ({ ...v, [field]: e.target.value }))
-    if (state === 'error') { setState('idle'); setErrorMsg('') }
-  }
+  const set =
+    (field: keyof typeof empty) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValues((v) => ({ ...v, [field]: e.target.value }))
+      if (state === 'error') {
+        setState('idle')
+        setErrorMsg('')
+      }
+    }
 
   const inputClass =
-    'w-full bg-bg border border-line rounded-xl px-4 py-3 text-ink text-sm placeholder:text-ink-soft/60 focus:outline-none focus:border-accent transition-colors duration-200'
+    'w-full border-2 border-ink bg-bg px-4 py-3 text-ink placeholder:text-ink-soft/60 focus:outline-none focus:border-blue transition-colors'
 
   return (
-    <section id="contact" ref={ref} className="gradient-mesh py-32 md:py-40">
-      <div className="max-w-2xl mx-auto px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.65 }}
-        >
-          <SectionLabel className="mb-5 justify-center">Contact</SectionLabel>
-          <h2
-            className="font-sans font-bold text-ink leading-[1.15] tracking-[-0.02em] mb-4"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)' }}
+    <section id="contact" ref={ref} className="border-t-2 border-ink px-5 py-24 sm:px-6 md:py-32">
+      <div className="mx-auto max-w-6xl">
+        <SectionLabel index="05" className="mb-12">
+          Contact
+        </SectionLabel>
+
+        <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-16">
+          {/* Left — the invitation */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           >
-            Building something interesting?{' '}
-            <em className="font-serif italic font-normal text-accent">Let&apos;s talk.</em>
-          </h2>
-          <p className="text-ink-soft leading-relaxed mb-10">
-            Open to interesting projects, collaborations, and conversations. I respond to
-            everything.
-          </p>
+            <h2 className="font-display text-[clamp(2rem,5vw,3.5rem)] font-bold uppercase leading-[0.95] tracking-tightest text-ink">
+              Let&apos;s{' '}
+              <Misregister as="span" hover className="inline-block cursor-default">
+                build
+              </Misregister>{' '}
+              something.
+            </h2>
+            <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
+              Open to interesting projects and conversations. Use the form, or reach me directly.
+            </p>
 
-          <a
-            href="mailto:hello@reshaan.dev"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-accent hover:opacity-80 transition-opacity mb-6"
+            <a
+              href={`mailto:${EMAIL}`}
+              className="mt-8 inline-block break-all font-display text-lg font-bold text-blue underline decoration-2 underline-offset-4 hover:text-pink sm:text-xl"
+            >
+              {EMAIL}
+            </a>
+
+            <ul className="mt-8 flex flex-wrap gap-3">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target={s.href.startsWith('http') ? '_blank' : undefined}
+                    rel="noopener noreferrer"
+                    className="key-line inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-bg"
+                    title={s.note || undefined}
+                  >
+                    {s.label} ↗
+                    {s.note && <span className="text-xs font-normal text-pink">{s.note}</span>}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </motion.div>
+
+          {/* Right — the form */}
+          <motion.div
+            initial={{ opacity: 0, y: 24 }}
+            animate={inView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            className="key-line bg-surface p-6 sm:p-8"
           >
-            hello@reshaan.dev
-          </a>
-
-          <div className="flex items-center justify-center gap-3 mb-12">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="w-10 h-10 flex items-center justify-center rounded-full border border-line text-ink-soft hover:border-accent/50 hover:text-accent transition-all duration-200"
-              >
-                {s.icon}
-              </a>
-            ))}
-          </div>
-        </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: 0.15, duration: 0.65 }}
-          className="rounded-card border border-line bg-surface p-8 text-left"
-        >
-          {state === 'success' ? (
-            <div className="py-8 text-center">
-              <div className="w-12 h-12 rounded-full bg-accent-2/15 flex items-center justify-center mx-auto mb-4">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-accent-2" aria-hidden>
-                  <polyline points="20 6 9 17 4 12" />
-                </svg>
+            {state === 'success' ? (
+              <div className="flex min-h-[20rem] flex-col items-center justify-center text-center">
+                <div className="flex h-12 w-12 items-center justify-center bg-blue text-bg" aria-hidden>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </div>
+                <p className="mt-4 font-display text-lg font-bold uppercase text-ink">Message sent</p>
+                <p className="mt-1 text-sm text-ink-soft">I&apos;ll get back to you soon.</p>
               </div>
-              <p className="font-semibold text-ink text-lg mb-1">Message sent to Reshaan.</p>
-              <p className="text-ink-soft text-sm">I&apos;ll get back to you soon.</p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
-                  Name
-                </label>
-                <input
-                  id="name"
-                  type="text"
-                  required
-                  placeholder="Your name"
-                  value={values.name}
-                  onChange={set('name')}
-                  className={inputClass}
-                />
-              </div>
+            ) : (
+              <form onSubmit={handleSubmit} noValidate className="space-y-5">
+                <Field id="name" label="Name">
+                  <input id="name" type="text" required placeholder="Your name" value={values.name} onChange={set('name')} className={inputClass} />
+                </Field>
+                <Field id="email" label="Email">
+                  <input id="email" type="email" required placeholder="you@email.com" value={values.email} onChange={set('email')} className={inputClass} />
+                </Field>
+                <Field id="message" label="Message">
+                  <textarea id="message" required rows={5} placeholder="What are you building?" value={values.message} onChange={set('message')} className={`${inputClass} resize-none`} />
+                </Field>
 
-              <div>
-                <label htmlFor="email" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
-                  Email
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  placeholder="your@email.com"
-                  value={values.email}
-                  onChange={set('email')}
-                  className={inputClass}
-                />
-              </div>
+                {errorMsg && (
+                  <p role="alert" className="text-sm font-semibold text-pink">
+                    {errorMsg}
+                  </p>
+                )}
 
-              <div>
-                <label htmlFor="message" className="block text-xs font-semibold tracking-[0.12em] uppercase text-ink-soft mb-2">
-                  Message
-                </label>
-                <textarea
-                  id="message"
-                  required
-                  rows={5}
-                  placeholder="What are you building?"
-                  value={values.message}
-                  onChange={set('message')}
-                  className={`${inputClass} resize-none`}
-                />
-              </div>
-
-              {errorMsg && (
-                <p role="alert" className="text-sm text-red-500">
-                  {errorMsg}
-                </p>
-              )}
-
-              <button
-                type="submit"
-                disabled={state === 'loading'}
-                className="w-full py-3.5 rounded-full bg-accent text-white font-semibold text-sm hover:opacity-90 transition-opacity disabled:opacity-60"
-              >
-                {state === 'loading' ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
-          )}
-        </motion.div>
+                <button
+                  type="submit"
+                  disabled={state === 'loading'}
+                  className="w-full bg-ink py-3.5 text-sm font-semibold text-bg transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                >
+                  {state === 'loading' ? 'Sending…' : 'Send message →'}
+                </button>
+              </form>
+            )}
+          </motion.div>
+        </div>
       </div>
     </section>
+  )
+}
+
+function Field({ id, label, children }: { id: string; label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label htmlFor={id} className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-ink-soft">
+        {label}
+      </label>
+      {children}
+    </div>
   )
 }
