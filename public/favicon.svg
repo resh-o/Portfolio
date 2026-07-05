@@ -1,6 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none">
-  <rect width="32" height="32" fill="#111114"/>
-  <text x="50%" y="54%" dominant-baseline="middle" text-anchor="middle"
-    font-family="Georgia, serif" font-size="20" font-weight="700"
-    fill="none" stroke="#C9A84C" stroke-width="1">R</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <rect width="32" height="32" fill="#edece6"/>
+  <rect x="1.25" y="1.25" width="29.5" height="29.5" fill="none" stroke="#17161a" stroke-width="2.5"/>
+  <g font-family="'Arial Black', system-ui, sans-serif" font-weight="900" font-size="22" text-anchor="middle">
+    <text x="14.6" y="23.2" fill="#ff4b77">R</text>
+    <text x="17.4" y="22.0" fill="#0b4be8">R</text>
+    <text x="16" y="22.6" fill="#17161a">R</text>
+  </g>
 </svg>
