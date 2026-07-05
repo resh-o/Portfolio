@@ -1,6 +1,13 @@
 export type ProjectStatus = 'Live' | 'Completed' | 'In Progress'
 
+export interface Metric {
+  value: string
+  label: string
+}
+
 export interface Project {
+  /** Print-style running number, 01–06. */
+  no: string
   id: string
   name: string
   tagline: string
@@ -9,192 +16,168 @@ export interface Project {
   tech: string[]
   status: ProjectStatus
   github?: string
-  demo?: string
   liveSiteUrl?: string
   features: string[]
   learned: string
-  icon: string
   featured: boolean
   year: string
-  display?: boolean
+  /** Verified headline numbers, shown only where they exist. */
+  metrics?: Metric[]
+  /** Visible flag for anything still unconfirmed. Rendered in the UI. */
+  todo?: string
 }
 
 export const projects: Project[] = [
+  // ── Featured ──────────────────────────────────────────
   {
+    no: '01',
     id: 'tradesman',
     name: 'Tradesman',
-    tagline: 'AI quoting tool for South African tradespeople.',
+    tagline: 'A live, AI-powered quoting tool for South African tradespeople.',
     description:
-      'Describe a job in plain language, get a professional itemised quote with realistic local pricing. Ready to send in under a minute. Built for the South African trades market.',
+      'Describe a job in plain language and Tradesman returns a professional, itemised quote with realistic local pricing — ready to send in under 30 seconds. Built for the South African trades market and used by real tradespeople.',
     problem:
-      'South African tradespeople spend hours manually calculating and formatting quotes. Tradesman removes that friction entirely. Describe the job, AI generates the itemised quote with local pricing, export a professional PDF, get paid faster.',
+      'South African tradespeople lose hours building quotes by hand. Tradesman removes that friction: describe the job, the AI generates an accurate itemised quote with local pricing, and you send a professional document minutes later.',
     tech: ['Next.js', 'Supabase', 'Anthropic API', 'Groq API', 'Paystack', 'Resend', 'Google OAuth', 'Vercel'],
     status: 'Live',
-    github: 'https://github.com/resh-o',
     liveSiteUrl: 'https://tradesman.to',
+    github: 'https://github.com/resh-o/Tradesman',
+    metrics: [
+      { value: '98%', label: 'quote accuracy' },
+      { value: '<30s', label: 'to a finished quote' },
+      { value: 'Live', label: 'at tradesman.to' },
+    ],
     features: [
       'AI quote generation from plain-language job descriptions',
-      'Realistic local South African pricing database',
-      'Professional PDF export ready to send to clients',
-      'Google OAuth authentication',
-      'Paystack payment integration',
+      '98% quote accuracy against real job pricing',
+      'Finished, itemised quotes in under 30 seconds',
+      'Realistic local South African pricing',
+      'Google OAuth sign-in and Paystack payments',
       'Automated quote delivery via Resend',
     ],
     learned:
-      'End-to-end SaaS architecture, multi-API integration and orchestration, South African market context, and shipping a real product used by real people. My first full production SaaS.',
-    icon: '🔧',
+      'End-to-end SaaS architecture, orchestrating multiple AI and payment APIs, and the discipline of shipping a real product that people rely on to get paid.',
     featured: true,
     year: '2024',
-    display: true,
   },
   {
-    id: 'atlas',
-    name: 'Atlas',
-    tagline: 'Personal AI assistant on a Raspberry Pi 5. Voice in, voice out.',
+    no: '02',
+    id: 'techmove',
+    name: 'TechMove',
+    tagline: '[TODO: one-line description — confirm with Reshaan]',
     description:
-      'Telegram-based AI assistant deployed on a Raspberry Pi 5. Voice messages in, voice responses out, with persistent memory, notes, scheduled tasks, and live system monitoring.',
+      '[TODO] A Dockerized project on Reshaan\'s GitHub. The public description and stack still need to be confirmed before this copy goes live — no details are being invented here.',
     problem:
-      'I wanted a personal AI assistant I actually own. No cloud dependency for inference, always available, understands my context over time. Atlas runs on hardware in my room, accessible anywhere via Telegram and Tailscale.',
-    tech: ['Python', 'Raspberry Pi 5', 'Telegram Bot API', 'Whisper', 'gTTS', 'Claude API', 'systemd', 'Tailscale'],
-    status: 'Live',
+      '[TODO: what problem TechMove solves — to confirm.]',
+    tech: ['Docker', '[TODO: rest of stack]'],
+    status: 'Completed',
+    github: 'https://github.com/resh-o',
     features: [
-      'Voice message transcription with OpenAI Whisper (local)',
-      'Text-to-speech voice responses via gTTS',
-      'JSON-based persistent memory across all conversations',
-      'Note-taking and scheduled task management',
-      'Live system stats: CPU, RAM, temperature monitoring',
-      'Remote access via Tailscale tunnel from anywhere',
-      'Modular OOP/SOLID architecture with clean separation of concerns',
+      '[TODO: confirm feature list from the repo.]',
     ],
     learned:
-      'Edge AI deployment on constrained hardware, Linux service management with systemd, modular Python architecture with SOLID principles, and the practical realities of owning your own AI infrastructure.',
-    icon: '🤖',
+      '[TODO: to confirm.]',
     featured: true,
-    year: '2024',
-    display: true,
+    year: '[TODO]',
+    todo: 'No repo named "TechMove" was found on github.com/resh-o. Confirm the exact repo, one-line description, stack, and link.',
   },
   {
+    no: '03',
     id: 'agora',
     name: 'Agora',
-    tagline: "Philosophical discourse with history's greatest thinkers, in your terminal.",
+    tagline: 'A multi-persona AI debate tool that runs in your terminal.',
     description:
-      "Chat one-on-one with 12 of history's greatest philosophers, or orchestrate multi-philosopher debates on any topic. Built entirely for the terminal with a rich colourful UI.",
+      "Chat one-on-one with 12 philosopher personas, or set them against each other in a live debate on any topic. A colourful terminal application powered by the Google Gemini API.",
     problem:
-      'Philosophy is best understood through dialogue, not textbooks. Agora creates a living seminar. Pressure-test ideas against Nietzsche, debate ethics with Kant, or watch Socrates interrogate a modern concept in real time.',
+      'Philosophy lands harder as dialogue than as a textbook. Agora stages a living seminar in the terminal — pressure-test an idea against Nietzsche, or watch twelve thinkers argue a question out in real time.',
     tech: ['Python', 'Google Gemini API', 'Rich'],
     status: 'Completed',
     github: 'https://github.com/resh-o/Agora',
     features: [
-      '12 philosopher personas with distinct voices and worldviews',
-      'Multi-philosopher debate mode. Philosophers argue with each other.',
-      'Session management with full persistent conversation history',
+      '12 philosopher personas, each with a distinct voice',
+      'Multi-persona debate mode — the philosophers argue with each other',
+      'Persistent, resumable conversation history',
       'Colourful terminal UI built with the Rich library',
-      'Clean OOP architecture: models, services, ui, utils layers',
+      'Clean OOP architecture: models, services, UI, utils',
     ],
     learned:
-      'Deep persona engineering with LLMs, maintaining consistent philosophical voice across long conversations. Clean Python architecture patterns and complex multi-agent session state management.',
-    icon: '🏛️',
-    featured: false,
+      'Persona engineering with LLMs and holding a consistent voice across long conversations, plus clean Python architecture for multi-agent session state.',
+    featured: true,
     year: '2024',
-    display: true,
   },
+
+  // ── More builds ───────────────────────────────────────
   {
+    no: '04',
     id: 'zentara',
     name: 'Zentara',
-    tagline: 'Fully local AI chatbot. No cloud, no cost, no data leaving your machine.',
+    tagline: 'A local-first AI chat app. Nothing leaves your machine.',
     description:
-      'A minimal AI chatbot with a clean React frontend and Node.js backend. Runs entirely on your machine using Ollama and Llama 3.2. Zero cloud dependency, zero API costs.',
+      'A minimal AI chatbot with a React front end and a Node.js back end that runs entirely on your own hardware using Ollama. No cloud, no API costs, no data leaving the machine.',
     problem:
-      'Every mainstream AI chatbot sends your data to third-party servers. Zentara runs entirely on your hardware. Conversations stay private, there are no API costs, and it works fully offline.',
-    tech: ['React', 'Node.js', 'Express', 'PostgreSQL', 'Supabase', 'Ollama', 'Llama 3.2'],
+      'Mainstream chatbots send your conversations to third-party servers. Zentara runs the model locally, so chats stay private, cost nothing to run, and work offline.',
+    tech: ['React', 'Node.js', 'Express', 'Ollama', 'Llama 3.2'],
     status: 'Completed',
     github: 'https://github.com/resh-o/Zentara',
     features: [
-      'Real-time AI chat powered by local Llama 3.2 via Ollama',
-      'Session memory. Context preserved across conversations.',
-      'PostgreSQL-backed message history',
-      'Clean, minimal chat UI',
-      'Zero external API calls. Fully air-gapped capable.',
+      'Real-time chat powered by a local model via Ollama',
+      'Session memory preserved across conversations',
+      'Message history persistence',
+      'Clean, minimal chat interface',
+      'Zero external API calls — capable of running fully offline',
     ],
     learned:
-      'Local LLM deployment trade-offs versus cloud APIs, full-stack JavaScript architecture, and why privacy-first design requires deliberate decisions at the system level.',
-    icon: '💬',
+      'The trade-offs of local LLM inference versus cloud APIs, full-stack JavaScript architecture, and what privacy-first design actually demands at the system level.',
     featured: false,
     year: '2024',
-    display: true,
   },
   {
+    no: '05',
     id: 'cmcs',
     name: 'Contract Monthly Claim System',
     tagline: 'End-to-end claims management for contract lecturers.',
     description:
-      'Full-stack MVC web application managing the monthly claims lifecycle for contract lecturers. From submission through coordinator review to academic manager approval.',
+      'A full-stack ASP.NET Core MVC web application that runs the monthly claims lifecycle for contract lecturers — from submission, through coordinator review, to academic-manager approval.',
     problem:
-      'Contract lecturers at universities deal with manual, paper-heavy claims processes. CMCS digitises the entire workflow with role-appropriate dashboards for each stakeholder.',
+      'Contract lecturers deal with manual, paper-heavy claims. This system digitises the whole workflow with a role-appropriate dashboard for each stakeholder.',
     tech: ['ASP.NET Core MVC', 'C#', 'SQL Server', 'HTML', 'CSS'],
     status: 'Completed',
     github: 'https://github.com/resh-o/Contract-Monthly-Claim-System',
     features: [
       'Role-based dashboards: Lecturer, Programme Coordinator, Academic Manager',
-      'Claim submission with supporting document uploads',
-      'Multi-stage approval workflow with full audit trail',
-      'Search and filter across all data tables',
-      'Secure role-based access control throughout',
+      'Claim submission with supporting-document uploads',
+      'Multi-stage approval workflow',
+      'Search and filter across claim data',
+      'Role-based access control throughout',
     ],
     learned:
-      'MVC architecture in the .NET ecosystem, role-based access control design, UX for data-heavy admin workflows, and the complexity of multi-user approval systems with real-world constraints.',
-    icon: '📋',
+      'MVC architecture in the .NET ecosystem, role-based access control, and designing UX for data-heavy, multi-user approval workflows.',
     featured: false,
     year: '2023',
-    display: true,
   },
   {
+    no: '06',
     id: 'solar-system',
     name: 'Solar System Simulation',
-    tagline: 'Interactive planetary orbit visualisation, pure vanilla JavaScript.',
+    tagline: 'Planetary orbits, visualised in vanilla JavaScript.',
     description:
-      'A browser-based interactive simulation of planetary orbits around the sun, rendered entirely with the HTML5 Canvas API. No frameworks, no dependencies.',
+      'A browser-based visualisation of the planets orbiting the sun, built from three files — index.html, script.js, style.css — with no frameworks or dependencies.',
     problem:
-      'A focused deep-dive into physics-based animation and the Canvas API. Building something visually compelling with zero external dependencies.',
-    tech: ['HTML', 'CSS', 'JavaScript', 'Canvas API'],
+      'A focused study in animation and the browser: build something visually satisfying with plain JavaScript and nothing else.',
+    tech: ['JavaScript', 'HTML', 'CSS'],
     status: 'Completed',
     github: 'https://github.com/resh-o/Solar-System-Simulation',
     features: [
-      'Accurate relative orbital periods for all planets',
-      'Scaled planet sizes and orbital distances',
-      'Smooth 60fps canvas rendering loop',
-      'Interactive. Click to focus on any planet.',
+      'Animated orbits of the planets around the sun',
+      'Built in vanilla JavaScript — no frameworks',
+      'Self-contained: index.html, script.js, style.css',
     ],
     learned:
-      'The Canvas API inside-out, trigonometric animation loops, physics-based rendering, and why vanilla JavaScript is often the right tool for creative coding.',
-    icon: '🪐',
+      'Animation loops in the browser and why plain JavaScript is often the right tool for small creative-coding projects.',
     featured: false,
     year: '2023',
-    display: true,
-  },
-  {
-    id: 'abc-retailer',
-    name: 'ABC Retailer',
-    tagline: 'Cloud-native retail management on the full Azure stack.',
-    description:
-      'Cloud-native retail management system managing customers, products, orders, and contracts. Fully integrated with Azure Blob, Table, Queue, File Share, and Functions.',
-    problem:
-      'A practical exploration of cloud-native architecture using Azure\'s full storage stack. Building a real application that leverages the right Azure service for each data type and workload.',
-    tech: ['ASP.NET Core MVC', 'C#', 'Azure Blob Storage', 'Azure Table Storage', 'Azure Queue Storage', 'Azure File Share', 'Azure Functions'],
-    status: 'Completed',
-    github: 'https://github.com/resh-o/Retailer-Website',
-    features: [
-      'Product image hosting and display via Azure Blob Storage',
-      'Async order processing via Azure Queue Storage',
-      'Contract management via Azure File Share',
-      'Customer/product/order CRUD via Azure Table Storage',
-      'Serverless processing with Azure Functions',
-    ],
-    learned:
-      'Azure cloud services in depth. Knowing when to use Blob vs Table vs Queue vs File Share. Serverless function design patterns and practical cloud-native architecture.',
-    icon: '☁️',
-    featured: false,
-    year: '2023',
-    display: false,
   },
 ]
+
+export const featuredProjects = projects.filter((p) => p.featured)
+export const moreBuilds = projects.filter((p) => !p.featured)

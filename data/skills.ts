@@ -3,32 +3,27 @@ export interface SkillGroup {
   skills: string[]
 }
 
+// Languages/frameworks are derived only from the six projects.
+// Platforms/tools are the confirmed set (Docker, Git, Azure, AWS) plus
+// infrastructure the projects actually run on.
 export const skillGroups: SkillGroup[] = [
   {
     label: 'Languages',
-    skills: ['C#', 'Kotlin', 'Python', 'TypeScript', 'JavaScript', 'HTML', 'CSS'],
+    skills: ['Python', 'TypeScript', 'JavaScript', 'C#', 'HTML', 'CSS'],
   },
   {
     label: 'Frameworks',
-    skills: ['Next.js', 'React', 'ASP.NET Core MVC', 'Tailwind CSS', 'Express'],
+    skills: ['Next.js', 'React', 'Node.js', 'Express', 'ASP.NET Core MVC', 'Tailwind CSS'],
   },
   {
-    label: 'AI / ML',
-    skills: ['Anthropic API', 'Groq API', 'Google Gemini', 'Ollama', 'Whisper'],
+    label: 'AI',
+    skills: ['Anthropic API', 'Groq API', 'Google Gemini', 'Ollama'],
   },
   {
-    label: 'Cloud & Infra',
-    skills: ['Supabase', 'Vercel', 'Azure', 'Tailscale', 'Linux', 'systemd'],
-  },
-  {
-    label: 'Tools',
-    skills: ['Git', 'VS Code', 'Cursor', 'Paystack', 'Resend'],
-  },
-  {
-    label: 'Hardware',
-    skills: ['Raspberry Pi 5', 'ESP32'],
+    label: 'Platforms & tools',
+    skills: ['Docker', 'Git', 'Azure', 'AWS', 'Supabase', 'Vercel', 'SQL Server', 'Paystack'],
   },
 ]
 
-export const currentlyLearning =
-  'Deepening into LLM architecture and fine-tuning, Rust for systems-level projects, and the business mechanics of building SaaS in emerging markets.'
+// [TODO: add anything else from your resume you want listed — extra languages,
+// tools, or platforms not derivable from the six projects above.]
