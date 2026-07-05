@@ -1,27 +1,35 @@
 {
   "pages": {
-    "/_not-found/page": [
-      "static/chunks/webpack-18d986a5ba7c270a.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-e2b88ffaa7b25ce1.js",
-      "static/chunks/main-app-0d3b19086e583a05.js",
-      "static/chunks/app/_not-found/page-221ef7203edcd7a2.js"
-    ],
-    "/layout": [
-      "static/chunks/webpack-18d986a5ba7c270a.js",
-      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
-      "static/chunks/117-e2b88ffaa7b25ce1.js",
-      "static/chunks/main-app-0d3b19086e583a05.js",
-      "static/css/22cadf32879e5f73.css",
-      "static/chunks/app/layout-2306cae6b9708d6c.js"
-    ],
     "/page": [
-      "static/chunks/webpack-18d986a5ba7c270a.js",
+      "static/chunks/webpack-be1ce2252c2f3441.js",
       "static/chunks/fd9d1056-b11b2651f33aae7f.js",
       "static/chunks/117-e2b88ffaa7b25ce1.js",
       "static/chunks/main-app-0d3b19086e583a05.js",
       "static/chunks/801-89bb3fb9c4164109.js",
-      "static/chunks/app/page-ee231bcc44c2c2a3.js"
+      "static/chunks/app/page-14a0bc3b6fefe2c3.js"
+    ],
+    "/layout": [
+      "static/chunks/webpack-be1ce2252c2f3441.js",
+      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
+      "static/chunks/117-e2b88ffaa7b25ce1.js",
+      "static/chunks/main-app-0d3b19086e583a05.js",
+      "static/css/03fa6afd92af1d46.css",
+      "static/chunks/app/layout-ddfc8cb591e9511b.js"
+    ],
+    "/not-found": [
+      "static/chunks/webpack-be1ce2252c2f3441.js",
+      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
+      "static/chunks/117-e2b88ffaa7b25ce1.js",
+      "static/chunks/main-app-0d3b19086e583a05.js",
+      "static/chunks/972-8c0ee6fabcd1342f.js",
+      "static/chunks/app/not-found-a7d61d5c4e474ea6.js"
+    ],
+    "/_not-found/page": [
+      "static/chunks/webpack-be1ce2252c2f3441.js",
+      "static/chunks/fd9d1056-b11b2651f33aae7f.js",
+      "static/chunks/117-e2b88ffaa7b25ce1.js",
+      "static/chunks/main-app-0d3b19086e583a05.js",
+      "static/chunks/app/_not-found/page-c1bbe1b4bc8170a6.js"
     ]
   }
 }
