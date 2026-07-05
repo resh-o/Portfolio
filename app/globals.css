@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 /* ─────────────────────────────────────────────────────────
-   RISO STUDIO — a screen-print aesthetic.
+   RISO STUDIO. A screen-print aesthetic.
    Two inks (pink + blue) overprint into violet on paper,
    with grain and deliberate misregistration.
    ───────────────────────────────────────────────────────── */
@@ -19,7 +19,7 @@
   /* Riso inks */
   --pink-rgb: 255 75 119;      /* #FF4B77 */
   --blue-rgb: 11 75 232;       /* #0B4BE8 */
-  --violet-rgb: 91 43 196;     /* #5B2BC4 — where inks overprint */
+  --violet-rgb: 91 43 196;     /* #5B2BC4, where inks overprint */
 
   --accent-rgb: var(--pink-rgb);
   --accent-2-rgb: var(--blue-rgb);
@@ -104,7 +104,7 @@
   }
 
   /* ─────────────────────────────────────────────────────
-     MISREGISTRATION — the signature.
+     MISREGISTRATION. The signature.
      A pink and a blue ghost sit offset behind the ink layer
      and snap into registration on load.
      ───────────────────────────────────────────────────── */

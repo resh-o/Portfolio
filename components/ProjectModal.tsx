@@ -120,8 +120,8 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
             <p className="leading-relaxed text-ink-soft">{project.learned}</p>
           </Block>
 
-          {(project.liveSiteUrl || project.github) && (
-            <div className="flex flex-wrap gap-3 pt-1">
+          {(project.liveSiteUrl || project.github || project.privateRepo) && (
+            <div className="flex flex-wrap items-center gap-3 pt-1">
               {project.liveSiteUrl && (
                 <a
                   href={project.liveSiteUrl}
@@ -141,6 +141,15 @@ export default function ProjectModal({ project, onClose }: { project: Project; o
                 >
                   View on GitHub ↗
                 </a>
+              )}
+              {project.privateRepo && (
+                <span className="inline-flex items-center gap-2 border-2 border-dashed border-line px-5 py-2.5 text-sm font-semibold text-ink-soft">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden>
+                    <rect x="4" y="11" width="16" height="9" rx="1" />
+                    <path d="M8 11V8a4 4 0 0 1 8 0v3" />
+                  </svg>
+                  Private repo
+                </span>
               )}
             </div>
           )}

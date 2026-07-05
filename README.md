@@ -1,4 +1,4 @@
-# Reshaan — Portfolio
+# Reshaan Portfolio
 
 Personal developer portfolio built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion.
 
@@ -22,7 +22,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Project Content
 
-All project data lives in `/data/projects.ts`. Edit that file to add, remove, or update projects — no other files need to change.
+All project data lives in `/data/projects.ts`. Edit that file to add, remove, or update projects. No other files need to change.
 
 ## Deploy to Vercel
 
@@ -49,7 +49,7 @@ components/
   Contact.tsx       # Form + social links
   Footer.tsx        # Minimal footer
 data/
-  projects.ts       # All project content — edit here
+  projects.ts       # All project content, edit here
 public/
   favicon.svg       # SVG monogram favicon
 ```

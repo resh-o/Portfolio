@@ -8,8 +8,8 @@ import Misregister from './Misregister'
 const EMAIL = 'reshaangovender@gmail.com'
 
 const socials = [
-  { label: 'GitHub', href: 'https://github.com/resh-o', note: '' },
-  { label: 'LinkedIn', href: '#', note: '[TODO: add LinkedIn URL]' },
+  { label: 'GitHub', href: 'https://github.com/resh-o' },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/reshaan' },
 ]
 
 type FormState = 'idle' | 'loading' | 'success' | 'error'
@@ -73,7 +73,7 @@ export default function Contact() {
         </SectionLabel>
 
         <div className="grid gap-12 md:grid-cols-[1fr_1fr] md:gap-16">
-          {/* Left — the invitation */}
+          {/* Left (the invitation) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -92,9 +92,10 @@ export default function Contact() {
 
             <a
               href={`mailto:${EMAIL}`}
-              className="mt-8 inline-block break-all font-display text-lg font-bold text-blue underline decoration-2 underline-offset-4 hover:text-pink sm:text-xl"
+              className="mt-8 inline-flex items-center gap-2 bg-ink px-6 py-3.5 text-sm font-semibold text-bg transition-transform hover:-translate-y-0.5"
             >
-              {EMAIL}
+              Email me
+              <span aria-hidden>↗</span>
             </a>
 
             <ul className="mt-8 flex flex-wrap gap-3">
@@ -102,20 +103,18 @@ export default function Contact() {
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    target={s.href.startsWith('http') ? '_blank' : undefined}
+                    target="_blank"
                     rel="noopener noreferrer"
                     className="key-line inline-flex items-center gap-2 px-4 py-2 text-sm font-semibold text-ink transition-colors hover:bg-ink hover:text-bg"
-                    title={s.note || undefined}
                   >
                     {s.label} ↗
-                    {s.note && <span className="text-xs font-normal text-pink">{s.note}</span>}
                   </a>
                 </li>
               ))}
             </ul>
           </motion.div>
 
-          {/* Right — the form */}
+          {/* Right (the form) */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}

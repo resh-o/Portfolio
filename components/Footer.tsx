@@ -1,6 +1,6 @@
 const socials = [
   { label: 'GitHub', href: 'https://github.com/resh-o' },
-  { label: 'LinkedIn', href: '#' }, // [TODO: add LinkedIn URL]
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/reshaan' },
   { label: 'Email', href: 'mailto:reshaangovender@gmail.com' },
 ]
 

@@ -16,9 +16,9 @@ const hanken = Hanken_Grotesk({
   weight: ['400', '500', '600', '700'],
 })
 
-const title = 'Reshaan Govender — Developer & Builder'
+const title = 'Reshaan Govender, Developer & Builder'
 const description =
-  'Reshaan Govender is a developer and builder in Gqeberha, South Africa, who ships real tools — including Tradesman, a live AI quoting product for South African tradespeople.'
+  'Reshaan Govender is a developer and builder in Gqeberha, South Africa, who ships real tools, including Tradesman, a live AI quoting product for South African tradespeople.'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://reshaan.com'),

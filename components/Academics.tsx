@@ -44,7 +44,7 @@ export default function Academics() {
             </dl>
           </motion.div>
 
-          {/* Achievements — the headline credential */}
+          {/* Achievements, the headline credential */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -63,11 +63,6 @@ export default function Academics() {
                   {a.title}
                 </h3>
                 <p className="mt-2 text-bg/85">{a.detail}</p>
-                {a.note && (
-                  <p className="mt-4 inline-block border-2 border-dashed border-bg/60 px-3 py-1.5 text-xs font-semibold text-bg">
-                    {a.note}
-                  </p>
-                )}
               </div>
             ))}
           </motion.div>

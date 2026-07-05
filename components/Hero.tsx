@@ -24,7 +24,7 @@ export default function Hero() {
         </div>
 
         <h1 className="font-display font-bold uppercase leading-[0.92] tracking-tightest text-ink">
-          <span className="sr-only">Reshaan Govender — developer and builder.</span>
+          <span className="sr-only">Reshaan Govender. Developer and builder.</span>
           <Misregister
             as="span"
             hover
@@ -46,7 +46,7 @@ export default function Hero() {
         <div className="mt-7 grid gap-8 md:mt-9 md:grid-cols-[1.1fr_0.9fr] md:items-end">
           <p className="rise rise-4 max-w-xl text-lg leading-relaxed text-ink-soft sm:text-xl">
             <span className="font-semibold text-ink">Developer &amp; builder.</span>{' '}
-            A third-year CS student in Gqeberha who ships real tools — including{' '}
+            A third-year CS student in Gqeberha who ships real tools, including{' '}
             <a
               href="https://tradesman.to"
               target="_blank"

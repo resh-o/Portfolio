@@ -1,5 +1,5 @@
 interface Props {
-  /** Section index, e.g. "02" — the numbering is real, not decorative. */
+  /** Section index, e.g. "02". The numbering is real, not decorative. */
   index: string
   children: React.ReactNode
   className?: string

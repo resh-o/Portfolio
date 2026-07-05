@@ -46,8 +46,8 @@ export default function About() {
               rather than waiting until I graduate.
             </p>
             <p>
-              Most of my work sits where practical software meets AI — quoting tools, local-first
-              chat apps, terminal experiments. One of them,{' '}
+              Most of my work sits where practical software meets AI (quoting tools, local-first
+              chat apps, terminal experiments). One of them,{' '}
               <a
                 href="https://tradesman.to"
                 target="_blank"

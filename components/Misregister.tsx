@@ -12,8 +12,8 @@ interface Props {
 }
 
 /**
- * The signature. Renders text three times — a pink and a blue ghost offset
- * behind the ink layer — so it reads like a screen print whose colours are
+ * The signature. Renders text three times (a pink and a blue ghost offset
+ * behind the ink layer) so it reads like a screen print whose colours are
  * a touch out of registration. On load the ghosts travel in and snap toward
  * registration; `prefers-reduced-motion` renders them already registered.
  */

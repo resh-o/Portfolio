@@ -4,7 +4,7 @@ import Misregister from '@/components/Misregister'
 import Grain from '@/components/Grain'
 
 export const metadata: Metadata = {
-  title: '404 — Page not found · Reshaan Govender',
+  title: '404. Page not found · Reshaan Govender',
 }
 
 export default function NotFound() {
@@ -17,7 +17,7 @@ export default function NotFound() {
         </p>
 
         <h1 className="font-display font-bold uppercase leading-[0.85] tracking-tightest text-ink">
-          <span className="sr-only">404 — page not found</span>
+          <span className="sr-only">404. Page not found</span>
           <Misregister as="span" hover aria-hidden className="block cursor-default text-[clamp(5rem,26vw,16rem)]">
             404
           </Misregister>

@@ -3,27 +3,30 @@ export interface SkillGroup {
   skills: string[]
 }
 
-// Languages/frameworks are derived only from the six projects.
-// Platforms/tools are the confirmed set (Docker, Git, Azure, AWS) plus
-// infrastructure the projects actually run on.
 export const skillGroups: SkillGroup[] = [
   {
     label: 'Languages',
-    skills: ['Python', 'TypeScript', 'JavaScript', 'C#', 'HTML', 'CSS'],
+    skills: ['C# (.NET)', 'Python', 'TypeScript', 'JavaScript', 'Kotlin', 'Java', 'SQL', 'HTML'],
   },
   {
-    label: 'Frameworks',
-    skills: ['Next.js', 'React', 'Node.js', 'Express', 'ASP.NET Core MVC', 'Tailwind CSS'],
+    label: 'Frameworks and tools',
+    skills: ['ASP.NET Core', 'Next.js', 'React', 'Node.js', 'Supabase', 'REST/API integration'],
   },
   {
-    label: 'AI',
-    skills: ['Anthropic API', 'Groq API', 'Google Gemini', 'Ollama'],
+    label: 'Platforms',
+    skills: ['Docker', 'Git', 'Azure', 'AWS'],
   },
   {
-    label: 'Platforms & tools',
-    skills: ['Docker', 'Git', 'Azure', 'AWS', 'Supabase', 'Vercel', 'SQL Server', 'Paystack'],
+    label: 'Hardware and IoT',
+    skills: ['Arduino', 'Embedded/IoT prototyping'],
+  },
+  {
+    label: 'Core competencies',
+    skills: [
+      'Object-oriented design (GoF patterns)',
+      'Software development lifecycle',
+      'Database management',
+      'Applied machine learning',
+    ],
   },
 ]
-
-// [TODO: add anything else from your resume you want listed — extra languages,
-// tools, or platforms not derivable from the six projects above.]

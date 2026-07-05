@@ -27,7 +27,7 @@ export default function Projects() {
           </p>
         </div>
 
-        {/* Featured — case studies */}
+        {/* Featured (case studies) */}
         <div>
           {featuredProjects.map((project, i) => (
             <FeaturedProject

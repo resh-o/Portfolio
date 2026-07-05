@@ -9,20 +9,18 @@ export const academics = {
   year: 'Third year',
   university: 'Emeris University',
   location: 'Gqeberha, South Africa',
-  // Kept as a visible placeholder until confirmed.
-  expectedGraduation: '[TODO: confirm year]',
+  expectedGraduation: '2026',
   facts: [
-    { label: 'Degree', value: 'BSc — Computer & Information Sciences (Application Development)' },
+    { label: 'Degree', value: 'BSc in Computer & Information Sciences (Application Development)' },
     { label: 'Institution', value: 'Emeris University · Gqeberha, South Africa' },
     { label: 'Standing', value: 'Third year' },
-    { label: 'Expected graduation', value: '[TODO: confirm year]', todo: true },
+    { label: 'Expected graduation', value: '2026' },
+    { label: 'Academic average', value: '90% across 5 semesters' },
   ] satisfies Credential[],
   achievements: [
     {
-      title: '1st place — University Hackathon',
-      detail: 'Back-to-back wins, two years running.',
-      note: '[TODO: confirm the two years to display]',
+      title: '1st place, University Hackathon',
+      detail: 'Two years running, in 2024 and 2025.',
     },
-    // [TODO: academic average / distinctions, if you want them shown.]
   ],
 }
