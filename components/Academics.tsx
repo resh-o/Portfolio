@@ -35,8 +35,7 @@ export default function Academics() {
                   <dt className="shrink-0 text-xs font-bold uppercase tracking-[0.16em] text-ink-soft sm:w-44">
                     {f.label}
                   </dt>
-                  <dd className={`text-base font-semibold sm:text-right ${f.todo ? 'text-pink' : 'text-ink'}`}>
-                    {f.todo && <span aria-hidden>⚑ </span>}
+                  <dd className="text-base font-semibold text-ink sm:text-right">
                     {f.value}
                   </dd>
                 </div>
