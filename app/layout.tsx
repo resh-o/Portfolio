@@ -1,42 +1,44 @@
 import type { Metadata } from 'next'
-import { Bricolage_Grotesque, Newsreader } from 'next/font/google'
+import { Unbounded, Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 
-const bricolage = Bricolage_Grotesque({
+const unbounded = Unbounded({
   subsets: ['latin'],
-  variable: '--font-bricolage',
+  variable: '--font-unbounded',
   display: 'swap',
+  weight: ['500', '600', '700', '800'],
 })
 
-const newsreader = Newsreader({
+const hanken = Hanken_Grotesk({
   subsets: ['latin'],
-  variable: '--font-newsreader',
+  variable: '--font-hanken',
   display: 'swap',
-  style: ['normal', 'italic'],
-  weight: ['400', '500'],
+  weight: ['400', '500', '600', '700'],
 })
+
+const title = 'Reshaan Govender — Developer & Builder'
+const description =
+  'Reshaan Govender is a developer and builder in Gqeberha, South Africa, who ships real tools — including Tradesman, a live AI quoting product for South African tradespeople.'
 
 export const metadata: Metadata = {
-  title: 'Reshaan. Developer and Builder.',
-  description:
-    'Developer, builder, and CS student from Gqeberha, South Africa. Shipping AI tools, full-stack products, and developer infrastructure with global ambition.',
-  keywords: ['developer', 'portfolio', 'Next.js', 'AI', 'full-stack', 'South Africa', 'Gqeberha', 'Reshaan'],
-  authors: [{ name: 'Reshaan' }],
-  creator: 'Reshaan',
-  metadataBase: new URL('https://reshaan.dev'),
+  metadataBase: new URL('https://reshaan.com'),
+  title,
+  description,
+  keywords: ['Reshaan Govender', 'developer', 'builder', 'portfolio', 'Next.js', 'AI', 'South Africa', 'Gqeberha', 'Tradesman'],
+  authors: [{ name: 'Reshaan Govender' }],
+  creator: 'Reshaan Govender',
   openGraph: {
     type: 'website',
     locale: 'en_ZA',
-    url: 'https://reshaan.dev',
-    title: 'Reshaan. Developer and Builder.',
-    description:
-      'Developer, builder, and CS student from Gqeberha, South Africa. Shipping AI tools, full-stack products, and developer infrastructure with global ambition.',
-    siteName: 'Reshaan',
+    url: 'https://reshaan.com',
+    title,
+    description,
+    siteName: 'Reshaan Govender',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Reshaan. Developer and Builder.',
-    description: 'Developer, builder, and CS student from Gqeberha, South Africa. Building with global ambition.',
+    title,
+    description,
   },
   robots: { index: true, follow: true },
 }
@@ -49,7 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={`${bricolage.variable} ${newsreader.variable}`}>
+      <body className={`${unbounded.variable} ${hanken.variable}`}>
         {children}
       </body>
     </html>

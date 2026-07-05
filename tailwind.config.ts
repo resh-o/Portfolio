@@ -17,16 +17,19 @@ const config: Config = {
         line: 'rgb(var(--line-rgb) / <alpha-value>)',
         accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
         'accent-2': 'rgb(var(--accent-2-rgb) / <alpha-value>)',
+        pink: 'rgb(var(--pink-rgb) / <alpha-value>)',
+        blue: 'rgb(var(--blue-rgb) / <alpha-value>)',
+        violet: 'rgb(var(--violet-rgb) / <alpha-value>)',
       },
       fontFamily: {
-        sans: ['var(--font-bricolage)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-newsreader)', 'Georgia', 'serif'],
+        display: ['var(--font-unbounded)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-hanken)', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        card: '22px',
+        card: '4px',
       },
-      animation: {
-        'spin-slow': 'spin 25s linear infinite',
+      letterSpacing: {
+        tightest: '-0.04em',
       },
     },
   },
